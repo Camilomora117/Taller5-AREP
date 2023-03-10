@@ -7,16 +7,13 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class MongoDBConnection {
 
-    private String url = "localhost:27017";
+    private String url = "172.31.25.129:27017";
     private MongoClient mongoClient = null;
     private MongoDatabase mongoDatabase = null;
     private MongoCollection<Document> mongoCollection;

@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.InputStreamReader;
+import java.util.Random;
 
 import static spark.Spark.port;
 import static spark.Spark.staticFiles;
@@ -13,7 +14,7 @@ import static spark.Spark.*;
 
 public class RoundRobin {
 
-    public static String url = "http://localhost:4567";
+    public static String url = "http://172.31.25.129:3400";
     private static final String USER_AGENT = "Mozilla/5.0";
     private static int valueRoundRobin = 0;
 
@@ -28,10 +29,14 @@ public class RoundRobin {
 
         post("/app", (req,res) -> getPost(req.body()));
 
+        get("favicon.ico", (req,res) -> "");
+
     }
 
     public static String getData() throws IOException {
-        URL obj = new URL(url + "/service");
+        Random r = new Random();
+        int num = r.nextInt(3);
+        URL obj = new URL(url + num + "/service");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
@@ -51,8 +56,9 @@ public class RoundRobin {
     }
 
     public static String getPost(String text) throws IOException {
-        int numero = (int) (Math.random() * 3 + 1);
-        URL obj = new URL(url + numero + "/service");
+        Random r = new Random();
+        int num = r.nextInt(3);
+        URL obj = new URL(url + num + "/service");
 
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("POST");
@@ -85,6 +91,6 @@ public class RoundRobin {
         if (System.getenv("PORT") != null) {
             return Integer.parseInt(System.getenv("PORT"));
         }
-        return 4568;
+        return 4566;
     }
 }
